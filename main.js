@@ -12,6 +12,7 @@ window.onload = function(){
 	game.keybind(90, "z");
 	//game.input.z←この部分に対応したラベルを設定。
 	game.keybind(88, "x");
+	game.keybind(32, "spaceKey")
 
  	//ゲームの実行速度（フレーム数）を指定
 	game.fps = 30;
@@ -53,18 +54,22 @@ window.onload = function(){
 			label1.x = (60);
 			label1.y = (210);
 			var label2 = new Label();
-			label2.text = ("'z'キーでスタート");
-			label2.x = (110);
+			label2.text = ("'スペース'　キーでスタート");
+			label2.x = (80);
 			label2.y = (240);
 
+			//ゲームスタートさせる
+			label2.addEventListener('touchend', function(){
+				game.popScene();
+			});
+			titleScene.on("spaceKeybuttonup", function(){
+				game.popScene();
+			});
 
 			titleScene.addChild(s_start);
 			titleScene.addChild(label1);
 			titleScene.addChild(label2);
 			game.pushScene(titleScene);
-			titleScene.on("zbuttonup", function(){
-				game.popScene();
-			});
 		}
 		start_();
 
@@ -85,11 +90,18 @@ window.onload = function(){
 			label.x = (60);
 			label.y = (75);
 
+			//リトライの用意
 			var retryLabel = new Label();
 			retryLabel.text = ('>>リトライ<<');
 			retryLabel.x = (110);
 			retryLabel.y = (230);
 			retryLabel.addEventListener('touchend', function(){
+				location.reload();
+			});
+			gameoverScene.on("spaceKeybuttonup", function(){
+				location.reload();
+			});
+			gameoverScene.on("spaceKeybuttonup", function(){
 				location.reload();
 			});
 
@@ -154,17 +166,23 @@ window.onload = function(){
 								// score.size();
 
 								score_label.color = "#333333";		//文字の色
-								score_label.x = 30;			//文字のX座標
-								score_label.y = 150;			//文字のY座標
+								score_label.x = 30;					//文字のX座標
+								score_label.y = 150;				//文字のY座標
 								score_label.font = "16px cursive";
 								score_label.color = "#ff0000";		//文字の色
 
-
+								//リトライの用意
 								var retryLabel = new Label();
 								retryLabel.text = ('>>リトライ<<');
 								retryLabel.x = (110);
 								retryLabel.y = (180);
 								retryLabel.addEventListener('touchend', function(){
+									location.reload();
+								});
+								game.on("spaceKeybuttonup", function(){
+									location.reload();
+								});
+								game.on("spaceKeybuttonup", function(){
 									location.reload();
 								});
 
